@@ -3,16 +3,15 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OperatorMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        if (auth::user()->role !== 'operator') {
-            return redirect('/home');
+        if (Auth::user() && Auth::user()->role === 'operator') {
+            return $next($request);
         }
-        return $next($request);
+        return redirect('/unauthorized')->with('error', 'Anda tidak memiliki akses sebagai operator.');
     }
 }

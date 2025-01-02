@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 
 class InstrukturController extends Controller
 {
+    
 public function index(Request $request)
 {
+    
     $search = $request->input('search');
     $instruktur = Instruktur::when($search, function ($query) use ($search) {
         return $query->where('nama_instruktur', 'like', "%{$search}%")

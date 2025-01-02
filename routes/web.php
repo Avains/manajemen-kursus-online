@@ -8,7 +8,14 @@ use App\Http\Controllers\KategoriKursusController;
 use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PendaftaranKursusController;
+use App\Http\Controllers\UserController;
 use App\Models\Kursus;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OperatorController;
+
+// Route::middleware(['auth', 'role.user'])->group(function () {
+//     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
+// });
 
 // Halaman login dan autentikasi
 Auth::routes();
@@ -20,12 +27,10 @@ Route::resource('instruktur', InstrukturController::class)->middleware('auth');
 Route::resource('kursus', controller: KursusController::class)->parameters(['kursus' => 'kursus'])->middleware('auth');
 Route::resource('pendaftaran', PendaftaranKursusController::class)->middleware('auth');
 Route::resource('kategori', controller: KategoriKursusController::class)->middleware('auth');
+Route::resource('users', controller: UserController::class)->middleware('auth');
 
-// Route::get('/kursus', function () {
-//     $kursus = Kursus::paginate(15);
-//     return view('kursus', compact('kursus'));
-// });
-// Halaman utama
+
+
 Route::get('/', function () {
     return view('welcome');
 });
