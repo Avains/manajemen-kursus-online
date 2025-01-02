@@ -9,11 +9,22 @@ use Illuminate\Http\Request;
 
 class PendaftaranKursusController extends Controller
 {
-    public function index()
-    {
-        $pendaftaran = PendaftaranKursus::with(['mahasiswa', 'kursus'])->get();
-        return view('pendaftaran.index', compact('pendaftaran'));
-    }
+// PendaftaranController.php
+public function index(Request $request)
+{
+    $search = $request->input('search');
+    $pendaftaran = PendaftaranKursus::with(['mahasiswa', 'kursus'])
+        ->when($search, callback: function ($query) use ($search) {
+            return $query->whereHas('mahasiswa', function ($q) use ($search) {
+                $q->where('nama_mahasiswa', 'like', "%{$search}%");
+            })->orWhereHas('kursus', function ($q) use ($search) {
+                $q->where('nama_kursus', 'like', "%{$search}%");
+            });
+        })
+        ->paginate(10);
+
+    return view('pendaftaran.index', compact('pendaftaran', 'search'));
+}
 
     public function create()
     {
@@ -27,6 +38,8 @@ class PendaftaranKursusController extends Controller
         $request->validate([
             'mahasiswa_id' => 'required|exists:mahasiswa,id',
             'kursus_id' => 'required|exists:kursus,id',
+            'tanggal_daftar' => 'required|date',
+            'status' => 'required|string'
         ]);
 
         PendaftaranKursus::create($request->all());

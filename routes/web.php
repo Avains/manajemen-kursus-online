@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KursusController;
@@ -9,43 +8,29 @@ use App\Http\Controllers\KategoriKursusController;
 use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PendaftaranKursusController;
+use App\Models\Kursus;
 
-// Rute untuk login
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+// Halaman login dan autentikasi
+Auth::routes();
 
-// Rute untuk dashboard setelah login
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-
-// Rute untuk logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// Rute untuk Mahasiswa
 Route::resource('mahasiswa', MahasiswaController::class)->middleware('auth');
-
-// Rute untuk Instruktur
 Route::resource('instruktur', InstrukturController::class)->middleware('auth');
-
-// Rute untuk Kursus
-Route::resource('kursus', KursusController::class)->middleware('auth');
-
-// Rute untuk Pendaftaran
+Route::resource('kursus', controller: KursusController::class)->parameters(['kursus' => 'kursus'])->middleware('auth');
 Route::resource('pendaftaran', PendaftaranKursusController::class)->middleware('auth');
+Route::resource('kategori', controller: KategoriKursusController::class)->middleware('auth');
 
-// Rute untuk login
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-
-// Rute untuk dashboard setelah login
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-
-// Rute untuk logout
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+// Route::get('/kursus', function () {
+//     $kursus = Kursus::paginate(15);
+//     return view('kursus', compact('kursus'));
+// });
+// Halaman utama
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Contoh rute tambahan
+Route::post('kursus/hapus-semua', [KursusController::class, 'destroyAll'])->name('kursus.destroyAll')->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

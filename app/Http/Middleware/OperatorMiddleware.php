@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Middleware/OperatorMiddleware.php
 namespace App\Http\Middleware;
 
 use Closure;

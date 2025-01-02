@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KategoriKursus;
 use Illuminate\Http\Request;
+KategoriKursus::whereNotIn('id', [512, 513, 514, 515, 516, 517])->delete();
 
 class KategoriKursusController extends Controller
 {
@@ -26,7 +27,7 @@ class KategoriKursusController extends Controller
         ]);
 
         KategoriKursus::create($request->all());
-        return redirect()->route('kategori-kursus.index')->with('success', 'Kategori kursus berhasil ditambahkan.');
+        return redirect()->route('kategori.index')->with('success', 'Kategori kursus berhasil ditambahkan.');
     }
 
     public function edit(KategoriKursus $kategoriKursus)
@@ -42,12 +43,19 @@ class KategoriKursusController extends Controller
         ]);
 
         $kategoriKursus->update($request->all());
-        return redirect()->route('kategori-kursus.index')->with('success', 'Kategori kursus berhasil diperbarui.');
+        return redirect()->route('kategori.index')->with('success', 'Kategori kursus berhasil diperbarui.');
     }
 
-    public function destroy(KategoriKursus $kategoriKursus)
-    {
-        $kategoriKursus->delete();
-        return redirect()->route('kategori-kursus.index')->with('success', 'Kategori kursus berhasil dihapus.');
+    public function destroy($id)
+{
+    $kategori = KategoriKursus::find($id);
+
+    if ($kategori) {
+        $kategori->delete();
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
     }
+
+    return redirect()->route('kategori.index')->with('error', 'Kategori tidak ditemukan.');
+}
+
 }

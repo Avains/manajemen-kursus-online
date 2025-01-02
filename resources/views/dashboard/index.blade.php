@@ -10,6 +10,8 @@
     <a href="{{ route('instruktur.index') }}" class="btn btn-primary">Kelola Instruktur</a>
     <a href="{{ route('kursus.index') }}" class="btn btn-primary">Kelola Kursus</a>
     <a href="{{ route('pendaftaran.index') }}" class="btn btn-primary">Kelola Pendaftaran</a>
+    <a href="{{ route('kategori.index') }}" class="btn btn-primary">Kategori</a>
+
     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
         @csrf
         <button type="submit" class="btn btn-danger">Logout</button>

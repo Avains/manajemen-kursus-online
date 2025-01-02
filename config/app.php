@@ -39,6 +39,9 @@ return [
     |
     */
 
+'pagination' => 'pagination::bootstrap-5',
+
+
     'debug' => (bool) env('APP_DEBUG', false),
 
     /*
