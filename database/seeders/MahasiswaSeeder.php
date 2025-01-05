@@ -1,6 +1,5 @@
 <?php
 
-// database/seeders/MahasiswaSeeder.php
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;

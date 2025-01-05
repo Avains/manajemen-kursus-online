@@ -67,15 +67,8 @@
             @endforeach
         </tbody>
     </table>
-
-    <!-- Pagination -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-        <div>
-            Showing {{ $kursus->firstItem() }} to {{ $kursus->lastItem() }} of {{ $kursus->total() }} entries
-        </div>
-        <div>
-            {{ $kursus->appends(request()->query())->links('vendor.pagination.bootstrap-5') }} <!-- Menggunakan Bootstrap 5 pagination -->
-        </div>
+    <div>
+        {{ $kursus->appends(request()->query())->links('vendor.pagination.bootstrap-5') }}
     </div>
 </div>
 @endsection

@@ -13,10 +13,13 @@ class Mahasiswa extends Model
 
     protected $fillable = [
         'nama_mahasiswa',
+        'nim',
         'email',
         'telepon',
         'alamat',
+        'nama_universitas',
     ];
+    
 
     public function pendaftaran()
     {

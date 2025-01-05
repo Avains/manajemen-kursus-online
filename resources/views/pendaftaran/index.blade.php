@@ -44,15 +44,8 @@
             @endforeach
         </tbody>
     </table>
-
-    <!-- Pagination -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-        <div>
-            Showing {{ $pendaftaran->firstItem() }} to {{ $pendaftaran->lastItem() }} of {{ $pendaftaran->total() }} entries
-        </div>
-        <div>
-            {{ $pendaftaran->appends(request()->query())->links('vendor.pagination.bootstrap-5') }}
-        </div>
+    <div>
+        {{ $pendaftaran->appends(request()->query())->links('vendor.pagination.bootstrap-5') }}
     </div>
 </div>
 @endsection

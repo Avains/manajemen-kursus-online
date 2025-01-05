@@ -12,6 +12,14 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        
+        <div class="form-group">
+            <label for="npm">NPM</label>
+            <input type="number" class="form-control @error('npm') is-invalid @enderror" id="npm" name="npm" value="{{ old('npm') }}" required>
+            @error('npm')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="form-group">
             <label for="email">Email</label>

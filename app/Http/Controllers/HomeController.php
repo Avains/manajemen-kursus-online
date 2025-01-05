@@ -23,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Redirect otomatis ke dashboard
+        return redirect('/dashboard');
     }
+    
+    // public function home()
+    // {
+    //     return redirect('/dashboard'); // Redirect ke dashboard
+    // }
 }

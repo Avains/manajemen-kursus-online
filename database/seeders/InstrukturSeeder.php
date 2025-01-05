@@ -1,6 +1,5 @@
 <?php
 
-// database/seeders/InstrukturSeeder.php
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -10,6 +9,12 @@ class InstrukturSeeder extends Seeder
 {
     public function run()
     {
-        Instruktur::factory(50)->create();
+        $instruktur = \App\Models\Instruktur::all();
+    
+        foreach ($instruktur as $instr) {
+            $instr->npm = rand(100000, 999999);
+            $instr->save();
+        }
     }
+    
 }

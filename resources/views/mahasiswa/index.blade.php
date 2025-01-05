@@ -29,9 +29,9 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
+                <th>NIM</th>
                 <th>Email</th>
-                <th>Telepon</th>
-                <th>Alamat</th>
+                <th>Universitas</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -39,10 +39,15 @@
             @foreach ($mahasiswa as $mhs)
             <tr>
                 <td>{{ $mahasiswa->firstItem() + $loop->index }}</td>
-                <td>{{ $mhs->nama_mahasiswa }}</td>
+                <td>
+                    <button type="button" class="btn btn-link" data-id="{{ $mhs->id }}" onclick="showDetail(this)">
+                        {{ $mhs->nama_mahasiswa }}
+                    </button>
+                </td>
+
+                <td>{{ $mhs->nim }}</td>
                 <td>{{ $mhs->email }}</td>
-                <td>{{ $mhs->telepon }}</td>
-                <td>{{ $mhs->alamat }}</td>
+                <td>{{ $mhs->nama_universitas }}</td>
                 <td>
                     <a href="{{ route('mahasiswa.edit', $mhs->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('mahasiswa.destroy', $mhs->id) }}" method="POST" style="display:inline;">
@@ -55,15 +60,57 @@
             @endforeach
         </tbody>
     </table>
-
-    <!-- Pagination -->
-    <div class="d-flex justify-content-between align-items-center mt-3">
-        <div>
-            Showing {{ $mahasiswa->firstItem() }} to {{ $mahasiswa->lastItem() }} of {{ $mahasiswa->total() }} entries
-        </div>
-        <div>
-            {{ $mahasiswa->appends(request()->query())->links('vendor.pagination.bootstrap-5') }}
+    <!-- Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Detail Mahasiswa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Nama:</strong> <span id="detailNama"></span></p>
+                <p><strong>NIM:</strong> <span id="detailNim"></span></p>
+                <p><strong>Email:</strong> <span id="detailEmail"></span></p>
+                <p><strong>Telepon:</strong> <span id="detailTelepon"></span></p>
+                <p><strong>Alamat:</strong> <span id="detailAlamat"></span></p>
+                <p><strong>Universitas:</strong> <span id="detailUniversitas"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
         </div>
     </div>
 </div>
-@endsection 
+
+    <div>
+        {{ $mahasiswa->appends(request()->query())->links('vendor.pagination.bootstrap-5') }}
+    </div>
+</div>
+<script>
+    function showDetail(button) {
+        const id = button.getAttribute('data-id');
+
+        // Fetch data dari server
+        fetch(`/mahasiswa/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                // Isi data ke modal
+                document.getElementById('detailNama').innerText = data.nama_mahasiswa;
+                document.getElementById('detailNim').innerText = data.nim;
+                document.getElementById('detailEmail').innerText = data.email;
+                document.getElementById('detailTelepon').innerText = data.telepon;
+                document.getElementById('detailAlamat').innerText = data.alamat;
+                document.getElementById('detailUniversitas').innerText = data.nama_universitas;
+
+                // Tampilkan modal
+                new bootstrap.Modal(document.getElementById('detailModal')).show();
+            })
+            .catch(error => {
+                console.error('Error fetching detail:', error);
+                alert('Gagal mengambil detail mahasiswa.');
+            });
+    }
+</script>
+
+@endsection

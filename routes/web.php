@@ -28,6 +28,8 @@ Route::resource('kursus', controller: KursusController::class)->parameters(['kur
 Route::resource('pendaftaran', PendaftaranKursusController::class)->middleware('auth');
 Route::resource('kategori', controller: KategoriKursusController::class)->middleware('auth');
 Route::resource('users', controller: UserController::class)->middleware('auth');
+Route::get('/universitas/search', [MahasiswaController::class, 'search'])->name('universitas.search');
+Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('mahasiswa.show');
 
 
 
