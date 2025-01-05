@@ -29,39 +29,60 @@ public function index(Request $request)
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama_mahasiswa' => 'required',
-            'nim' => 'required|string|max:255',
-            'email' => 'required|email|unique:mahasiswa,email',
-            'nama_universitas' => 'required|string|max:255',
-            'telepon' => 'required',
-            'alamat' => 'required',
-        ]);
+{
+    $request->validate([
+        'nama_mahasiswa' => 'required|string|max:255',
+        'nim' => 'required|string|max:20',
+        'email' => 'required|email|max:255',
+        'telepon' => 'required|string|max:15',
+        'alamat' => 'required|string|max:500',
+        'nama_universitas' => 'required|string|max:255',
+        'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        Mahasiswa::create($request->all());
-        return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan.');
+    $data = $request->all();
+
+    // Simpan file ke folder `storage/app/public/mahasiswa`
+    if ($request->hasFile('foto_profil')) {
+        $path = $request->file('foto_profil')->store('mahasiswa', 'public');
+        $data['foto_profil'] = $path; // Simpan path file ke database
     }
+
+    Mahasiswa::create($data);
+
+    return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan.');
+}
 
     public function edit(Mahasiswa $mahasiswa)
     {
         return view('mahasiswa.edit', compact('mahasiswa'));
     }
 
-    public function update(Request $request, Mahasiswa $mahasiswa)
-    {
-        $request->validate([
-            'nama_mahasiswa' => 'required|string|max:255',
-            'nim' => 'required|string|max:255',
-            'email' => 'required|email',
-            'nama_universitas' => 'required|string|max:255',
-            'telepon' => 'required|string|max:15',
-            'alamat' => 'required|string',
-        ]);
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama_mahasiswa' => 'required|string|max:255',
+        'nim' => 'required|string|max:20',
+        'email' => 'required|email|max:255',
+        'nama_universitas' => 'required|string|max:255',
+        'telepon' => 'required|string|max:15',
+        'alamat' => 'required|string|max:500',
+        'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        $mahasiswa->update($request->all());
-        return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil diperbarui.');
+    $mahasiswa = Mahasiswa::findOrFail($id);
+    $mahasiswa->fill($request->except('foto_profil'));
+
+    if ($request->hasFile('foto_profil')) {
+        $path = $request->file('foto_profil')->store('mahasiswa', 'public');
+        $mahasiswa->foto_profil = $path;
     }
+
+    $mahasiswa->save();
+
+    return redirect()->route('mahasiswa.index')->with('success', 'Data mahasiswa berhasil diperbarui.');
+}
+
 
     public function destroy(Mahasiswa $mahasiswa)
     {

@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('mahasiswa.update', $mahasiswa->id) }}" method="POST">
+    <form action="{{ route('mahasiswa.update', $mahasiswa->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -51,49 +51,18 @@
             <textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ old('alamat', $mahasiswa->alamat) }}</textarea>
         </div>
 
+        <div class="mb-3">
+            <label for="foto_profil" class="form-label">Foto Profil</label>
+            <input type="file" name="foto_profil" class="form-control" id="foto_profil">
+            @if ($mahasiswa->foto_profil)
+                <div class="mt-2">
+                    <img src="{{ asset('storage/' . $mahasiswa->foto_profil) }}" alt="Foto Profil" width="100">
+                </div>
+            @endif
+        </div>
+
         <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary">Batal</a>
     </form>
 </div>
 @endsection
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function () {
-    $('#nama_universitas').on('input', function () {
-        let query = $(this).val();
-        if (query.length > 2) { // Mulai pencarian setelah 2 karakter
-            $.ajax({
-    url: "{{ route('universitas.search') }}", // Rute untuk mencari universitas
-    type: "GET",
-    data: { query: query },
-    success: function (data) {
-        console.log(data);  // Debug untuk melihat data yang dikirimkan
-        let list = $('#universitas-list');
-        list.empty();
-        if (data.length > 0) {
-            data.forEach(function (universitas) {
-                console.log(universitas);  // Cek setiap objek universitas
-                list.append(`<div class="dropdown-item" onclick="selectUniversitas('${universitas.nama_universitas}')">${universitas.nama_universitas}</div>`);
-            });
-            list.show();
-        } else {
-            list.hide();
-        }
-    },
-    error: function () {
-        console.error("Terjadi kesalahan saat memuat data universitas.");
-    },
-});
-
-        } else {
-            $('#universitas-list').hide();
-        }
-    });
-});
-
-function selectUniversitas(name) {
-    $('#nama_universitas').val(name);
-    $('#universitas-list').hide();
-}
-</script>

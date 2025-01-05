@@ -3,12 +3,20 @@
 @section('content')
 <div class="container">
     <h1>Tambah Mahasiswa</h1>
-    <form action="{{ route('mahasiswa.store') }}" method="POST">
+    <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="nama_mahasiswa">Nama Mahasiswa</label>
             <input type="text" class="form-control @error('nama_mahasiswa') is-invalid @enderror" id="nama_mahasiswa" name="nama_mahasiswa" value="{{ old('nama_mahasiswa') }}" required>
             @error('nama_mahasiswa')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="nim">NIM</label>
+            <input type="text" class="form-control @error('nim') is-invalid @enderror" id="nim" name="nim" value="{{ old('nim') }}" required>
+            @error('nim')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
@@ -43,6 +51,14 @@
             <div id="universitas-list" class="dropdown-menu show" style="position: absolute; display: none; z-index: 1000;">
             </div>
             @error('nama_universitas')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="foto_profil">Foto Profil</label>
+            <input type="file" class="form-control @error('foto_profil') is-invalid @enderror" id="foto_profil" name="foto_profil">
+            @error('foto_profil')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

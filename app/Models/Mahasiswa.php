@@ -18,6 +18,7 @@ class Mahasiswa extends Model
         'telepon',
         'alamat',
         'nama_universitas',
+        'foto_profil',
     ];
     
 
