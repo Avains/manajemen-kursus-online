@@ -8,6 +8,8 @@ use App\Models\Kursus;
 use App\Models\PendaftaranKursus;
 use App\Models\KategoriKursus;
 use App\Models\User;
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -31,5 +33,21 @@ class DashboardController extends Controller
             'totalKategori',
             'totalUser'
         ));
+        
+    }
+    public function userDashboard(Request $request)
+    {
+        $search = $request->input('search'); // Ambil parameter pencarian
+
+        // Query mahasiswa dengan fitur pencarian
+        $mahasiswa = Mahasiswa::query()
+            ->when($search, function ($query, $search) {
+                $query->where('nama_mahasiswa', 'like', "%$search%")
+                      ->orWhere('nim', 'like', "%$search%");
+            })
+            ->paginate(10); // Pagination 10 data per halaman
+
+        // Kirim data ke view
+        return view('layouts.user', compact('mahasiswa'));
     }
 }

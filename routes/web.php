@@ -43,6 +43,8 @@ Route::middleware('auth')->get('/dashboard', function () {
 })->name('dashboard');
 
 
+Route::get('/dashboard/user', [DashboardController::class, 'userDashboard'])->name('dashboard.user');
+
 // Route Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
