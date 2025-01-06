@@ -23,6 +23,25 @@ Route::middleware(['auth'])->get('/dashboard/user', function () {
     return view('layouts.user'); // Tampilan untuk dashboard user
 })->name('dashboard.user');
 
+Route::middleware('guest')->get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+
+Route::middleware('auth')->get('/dashboard', function () {
+    $user = Auth::user();
+
+    if ($user->isAdmin()) {
+        return redirect('/dashboard/index'); // Arahkan ke dashboard admin
+    }
+
+    if ($user->isUser()) {
+        return redirect('/dashboard/user'); // Arahkan ke dashboard user
+    }
+
+    return redirect('/login'); // Jika peran tidak ditemukan, kembali ke login
+})->name('dashboard');
+
 
 // Route Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

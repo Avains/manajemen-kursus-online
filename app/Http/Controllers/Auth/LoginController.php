@@ -17,7 +17,6 @@ class LoginController extends Controller
      * @return string
      */
 
-
     protected function redirectTo()
     {
         // Jika role user adalah admin, arahkan ke dashboard admin
@@ -30,7 +29,7 @@ class LoginController extends Controller
         }
     
         // Default redirect jika tidak ada role yang cocok
-        return '/';
+        return '/home';
     }
     
     
