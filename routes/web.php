@@ -9,25 +9,33 @@ use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PendaftaranKursusController;
 use App\Http\Controllers\UserController;
-use App\Models\Kursus;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\OperatorController;
 
-// Route::middleware(['auth', 'role.user'])->group(function () {
-//     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
-// });
+use Illuminate\Support\Facades\Auth;
 
-// Halaman login dan autentikasi
+
 Auth::routes();
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::middleware(['auth', 'role.redirect'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::middleware(['auth'])->get('/dashboard/index', [DashboardController::class, 'index'])->name('dashboard.admin');
+
+Route::middleware(['auth'])->get('/dashboard/user', function () {
+    return view('layouts.user'); // Tampilan untuk dashboard user
+})->name('dashboard.user');
+
+
+// Route Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Resource routes
 Route::resource('mahasiswa', MahasiswaController::class)->middleware('auth');
 Route::resource('instruktur', InstrukturController::class)->middleware('auth');
-Route::resource('kursus', controller: KursusController::class)->parameters(['kursus' => 'kursus'])->middleware('auth');
+Route::resource('kursus', KursusController::class)->middleware('auth');
 Route::resource('pendaftaran', PendaftaranKursusController::class)->middleware('auth');
-Route::resource('kategori', controller: KategoriKursusController::class)->middleware('auth');
-Route::resource('users', controller: UserController::class)->middleware('auth');
+Route::resource('kategori', KategoriKursusController::class)->middleware('auth');
+Route::resource('users', UserController::class)->middleware('auth');
+
+// Route tambahan
 Route::get('/universitas/search', [MahasiswaController::class, 'search'])->name('universitas.search');
 Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('mahasiswa.show');
 
@@ -36,8 +44,5 @@ Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('mahas
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Contoh rute tambahan
-Route::post('kursus/hapus-semua', [KursusController::class, 'destroyAll'])->name('kursus.destroyAll')->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

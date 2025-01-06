@@ -21,9 +21,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        // Middleware lain
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        'operator' => \App\Http\Middleware\OperatorMiddleware::class,
-        // 'role.user' => \App\Http\Middleware\RoleUserMiddleware::class,
+        'role.redirect' => \App\Http\Middleware\RedirectBasedOnRole::class,
     ];
+    
 }
