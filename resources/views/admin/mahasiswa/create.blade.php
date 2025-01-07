@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Tambah Mahasiswa</h1>
-    <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="nama_mahasiswa">Nama Mahasiswa</label>
@@ -64,7 +64,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 

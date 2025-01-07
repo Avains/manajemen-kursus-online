@@ -17,11 +17,17 @@ Auth::routes();
 // Rute untuk admin
 Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
-    
-    // Rute untuk mahasiswa (sudah otomatis dengan resource)
-    Route::resource('mahasiswa', MahasiswaController::class);
-    
-    // Rute lainnya
+    // Route::resource('mahasiswa', MahasiswaController::class);
+    Route::resource('mahasiswa', MahasiswaController::class)->names([
+        'index' => 'admin.mahasiswa.index',
+        'create' => 'admin.mahasiswa.create',
+        'store' => 'admin.mahasiswa.store',
+        'show' => 'admin.mahasiswa.show',
+        'edit' => 'admin.mahasiswa.edit',
+        'update' => 'admin.mahasiswa.update',
+        'destroy' => 'admin.mahasiswa.destroy',
+    ]);
+    Route::get('/mahasiswa/create', [MahasiswaController::class, 'create'])->name('mahasiswa.create');
     Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('admin.mahasiswa.show');  // Menampilkan detail mahasiswa
     Route::get('/universitas/search', [MahasiswaController::class, 'search'])->name('admin.universitas.search');  // Mencari universitas
     
@@ -32,7 +38,6 @@ Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function ()
     Route::resource('pendaftaran', PendaftaranKursusController::class);
     Route::resource('users', UserController::class);
 });
-Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa.index');
 
 // Rute untuk user
 Route::middleware(['auth', 'role.redirect'])->prefix('user')->group(function () {

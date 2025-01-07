@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-md-4 mb-4">
-            <a href="{{ route('mahasiswa.index') }}" class="card text-center text-decoration-none">
+            <a href="{{ route('admin.mahasiswa.index') }}" class="card text-center text-decoration-none">
                 <div class="card-header">
                     Data Mahasiswa
                 </div>

@@ -10,10 +10,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('mahasiswa.index') }}">Data Mahasiswa</a>
-                </li> -->
-
             </ul>
         </div>
     </div>

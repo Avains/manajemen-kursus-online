@@ -49,8 +49,8 @@
                 <td>{{ $mhs->email }}</td>
                 <td>{{ $mhs->nama_universitas }}</td>
                 <td>
-                    <a href="{{ route('mahasiswa.edit', $mhs->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('mahasiswa.destroy', $mhs->id) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('admin.mahasiswa.edit', $mhs->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('admin.mahasiswa.destroy', $mhs->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus mahasiswa ini?')">Hapus</button>
@@ -92,7 +92,7 @@
         const id = button.getAttribute('data-id');
 
         // Fetch data dari server
-        fetch(`/mahasiswa/${id}`)
+        fetch(`/admin/mahasiswa/${id}`)
             .then(response => response.json())
             .then(data => {
                 // Isi data ke modal
