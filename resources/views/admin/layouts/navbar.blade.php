@@ -10,10 +10,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                 </li>
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('mahasiswa.index') }}">Data Mahasiswa</a>
-                </li> -->
-
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('instruktur.index') }}">Data Instruktur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('kursus.index') }}">Data Kursus</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('pendaftaran.index') }}">Data Pendaftaran</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('kategori.index') }}">Kategori</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('users.index') }}">Data User</a>
+                </li>
             </ul>
         </div>
     </div>

@@ -3,27 +3,27 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectBasedOnRole
 {
-    public function handle($request, Closure $next)
-{
-    if (Auth::check()) {
-        $user = Auth::user();
+    public function handle(Request $request, Closure $next)
+    {
+        $user = Auth::user(); // Ambil pengguna yang sedang login
 
-        // Jika user adalah admin, arahkan ke /dashboard/index
-        if ($user->isAdmin()) {
-            return redirect()->route('dashboard.admin'); // Gunakan nama rute dashboard.admin
+        if ($user) {
+            // Jika admin
+            if ($user->role === 'admin' && $request->is('user/*')) {
+                return redirect('/admin/dashboard');
+            }
+
+            // Jika user
+            if ($user->role === 'user' && $request->is('admin/*')) {
+                return redirect('/user/dashboard');
+            }
         }
 
-        // Jika user adalah user biasa, arahkan ke /dashboard/user
-        if ($user->isUser()) {
-            return redirect()->route('dashboard.user'); // Gunakan nama rute dashboard.user
-        }
+        return $next($request); // Lanjutkan ke request berikutnya
     }
-
-    return $next($request);
-}
-
 }

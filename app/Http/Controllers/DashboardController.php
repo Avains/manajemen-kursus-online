@@ -16,38 +16,38 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Ambil data total dari setiap model
-        $totalMahasiswa = Mahasiswa::count();
-        $totalInstruktur = Instruktur::count();
-        $totalKursus = Kursus::count();
-        $totalPendaftaran = PendaftaranKursus::count();
-        $totalKategori = KategoriKursus::count();
-        $totalUser = User::count();
+        $user = Auth::user();
 
-        // Kirim data ke view
-        return view('dashboard.index', compact(
-            'totalMahasiswa',
-            'totalInstruktur',
-            'totalKursus',
-            'totalPendaftaran',
-            'totalKategori',
-            'totalUser'
-        ));
-        
+        if ($user->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('admin.dashboard.index');
     }
-    public function userDashboard(Request $request)
+
+    public function adminDashboard()
     {
-        $search = $request->input('search'); // Ambil parameter pencarian
+        // Data untuk admin dashboard
+        $data = [
+            'totalMahasiswa' => Mahasiswa::count(),
+            'totalInstruktur' => Instruktur::count(),
+            'totalKursus' => Kursus::count(),
+            'totalPendaftaran' => PendaftaranKursus::count(),
+            'totalKategori' => KategoriKursus::count(),
+            'totalUser' => User::count(),
+        ];
 
-        // Query mahasiswa dengan fitur pencarian
-        $mahasiswa = Mahasiswa::query()
-            ->when($search, function ($query, $search) {
-                $query->where('nama_mahasiswa', 'like', "%$search%")
-                      ->orWhere('nim', 'like', "%$search%");
-            })
-            ->paginate(10); // Pagination 10 data per halaman
+        return view('admin.dashboard.index', $data); // Path ke view admin
+    }
 
-        // Kirim data ke view
-        return view('layouts.user', compact('mahasiswa'));
+    public function userDashboard()
+    {
+        $user = Auth::user();
+
+        if ($user->role !== 'user') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('user.dashboard.index');
     }
 }
