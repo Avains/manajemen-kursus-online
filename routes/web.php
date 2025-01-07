@@ -30,7 +30,6 @@ Route::middleware(['auth', 'role.redirect'])->prefix('user')->group(function () 
     Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('user.dashboard');
 });
 
-// Rute dashboard (tidak perlu duplikasi)
 Route::middleware(['auth'])->get('/dashboard', function () {
     $user = Auth::user();
 
