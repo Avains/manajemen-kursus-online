@@ -11,7 +11,7 @@ class KategoriKursusController extends Controller
     public function index()
     {
         $kategoriKursus = KategoriKursus::all();
-        return view('kategori.index', compact('kategoriKursus'));
+        return view('admin.kategori.index', compact('kategoriKursus'));
     }
 
     public function create()

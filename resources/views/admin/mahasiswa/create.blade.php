@@ -75,7 +75,7 @@ $(document).ready(function () {
         let query = $(this).val();
         if (query.length > 2) { // Mulai pencarian setelah 2 karakter
             $.ajax({
-                url: "{{ route('universitas.search') }}", // Rute untuk mencari universitas
+                url: "{{ route('admin.universitas.search') }}", // Rute untuk mencari universitas
                 type: "GET",
                 data: { query: query },
                 success: function (data) {

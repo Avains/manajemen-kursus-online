@@ -25,7 +25,7 @@ public function index(Request $request)
         ->orderBy($sortField, $sortDirection)
         ->paginate(10);
 
-    return view('kursus.index', compact('kursus', 'search', 'sortField', 'sortDirection'));
+    return view('admin.kursus.index', compact('kursus', 'search', 'sortField', 'sortDirection'));
 }
 
     public function create()

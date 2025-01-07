@@ -21,7 +21,7 @@ public function index(Request $request)
                      ->orWhere('alamat', 'like', "%{$search}%");
     })->paginate(10);
 
-    return view('instruktur.index', compact('instruktur', 'search'));
+    return view('admin.instruktur.index', compact('instruktur', 'search'));
 }
 
     public function create()

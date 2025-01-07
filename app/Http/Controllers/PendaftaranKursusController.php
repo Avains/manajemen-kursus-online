@@ -23,14 +23,14 @@ public function index(Request $request)
         })
         ->paginate(10);
 
-    return view('pendaftaran.index', compact('pendaftaran', 'search'));
+    return view('admin.pendaftaran.index', compact('pendaftaran', 'search'));
 }
 
     public function create()
     {
         $mahasiswa = Mahasiswa::all();
         $kursus = Kursus::all();
-        return view('pendaftaran.create', compact('mahasiswa', 'kursus'));
+        return view('admin.pendaftaran.create', compact('mahasiswa', 'kursus'));
     }
 
     public function store(Request $request)
@@ -43,14 +43,14 @@ public function index(Request $request)
         ]);
 
         PendaftaranKursus::create($request->all());
-        return redirect()->route('pendaftaran.index')->with('success', 'Pendaftaran kursus berhasil ditambahkan.');
+        return redirect()->route('admin.pendaftaran.index')->with('success', 'Pendaftaran kursus berhasil ditambahkan.');
     }
 
     public function edit(PendaftaranKursus $pendaftaran)
     {
         $mahasiswa = Mahasiswa::all();
         $kursus = Kursus::all();
-        return view('pendaftaran.edit', compact('pendaftaran', 'mahasiswa', 'kursus'));
+        return view('admin.pendaftaran.edit', compact('pendaftaran', 'mahasiswa', 'kursus'));
     }
 
     public function update(Request $request, PendaftaranKursus $pendaftaran)
@@ -61,12 +61,12 @@ public function index(Request $request)
         ]);
 
         $pendaftaran->update($request->all());
-        return redirect()->route('pendaftaran.index')->with('success', 'Pendaftaran kursus berhasil diperbarui.');
+        return redirect()->route('admin.pendaftaran.index')->with('success', 'Pendaftaran kursus berhasil diperbarui.');
     }
 
     public function destroy(PendaftaranKursus $pendaftaran)
     {
         $pendaftaran->delete();
-        return redirect()->route('pendaftaran.index')->with('success', 'Pendaftaran kursus berhasil di hapus.');
+        return redirect()->route('admin.pendaftaran.index')->with('success', 'Pendaftaran kursus berhasil di hapus.');
     }
 }

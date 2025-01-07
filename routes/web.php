@@ -17,13 +17,22 @@ Auth::routes();
 // Rute untuk admin
 Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+    
+    // Rute untuk mahasiswa (sudah otomatis dengan resource)
     Route::resource('mahasiswa', MahasiswaController::class);
+    
+    // Rute lainnya
+    Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('admin.mahasiswa.show');  // Menampilkan detail mahasiswa
+    Route::get('/universitas/search', [MahasiswaController::class, 'search'])->name('admin.universitas.search');  // Mencari universitas
+    
+    // Rute lainnya yang spesifik
     Route::resource('instruktur', InstrukturController::class);
     Route::resource('kategori', KategoriKursusController::class);
     Route::resource('kursus', KursusController::class);
     Route::resource('pendaftaran', PendaftaranKursusController::class);
     Route::resource('users', UserController::class);
 });
+Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa.index');
 
 // Rute untuk user
 Route::middleware(['auth', 'role.redirect'])->prefix('user')->group(function () {
