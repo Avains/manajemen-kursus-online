@@ -25,7 +25,7 @@ class LoginController extends Controller
         }
         // Jika role user adalah user biasa, arahkan ke dashboard user
         elseif (Auth::user()->role === 'user') {
-            return route('dashboard.user');  // User dashboard route
+            return route('user.dashboard');  // User dashboard route
         }
     
         // Default redirect jika tidak ada role yang cocok
