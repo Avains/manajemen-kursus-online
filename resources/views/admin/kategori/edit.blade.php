@@ -14,19 +14,20 @@
         </div>
     @endif
 
-    <form action="{{ route('kategori.update', $kategori->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="form-group">
-            <label for="nama_kategori">Nama Kategori</label>
-            <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" value="{{ $kategori->nama_kategori }}" required>
-        </div>
-        <div class="form-group">
-            <label for="deskripsi">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi">{{ $kategori->deskripsi }}</textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Perbarui</button>
-        <a href="{{ route('kategori.index') }}" class="btn btn-secondary">Kembali</a>
-    </form>
+    <form action="{{ route('admin.kategori.update', $kategoriKursus->id) }}" method="POST">
+    @csrf
+    @method('PUT')
+    <div class="form-group">
+        <label for="nama_kategori">Nama Kategori</label>
+        <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" value="{{ $kategoriKursus->nama_kategori }}" required>
+    </div>
+    <div class="form-group">
+        <label for="deskripsi">Deskripsi</label>
+        <textarea class="form-control" id="deskripsi" name="deskripsi">{{ $kategoriKursus->deskripsi }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Perbarui</button>
+    <a href="{{ route('admin.kategori.index') }}" class="btn btn-secondary">Kembali</a>
+</form>
+
 </div>
 @endsection

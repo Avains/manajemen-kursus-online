@@ -32,10 +32,48 @@ Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function ()
     Route::get('/universitas/search', [MahasiswaController::class, 'search'])->name('admin.universitas.search');  // Mencari universitas
     
     // Rute lainnya yang spesifik
-    Route::resource('instruktur', InstrukturController::class);
-    Route::resource('kategori', KategoriKursusController::class);
-    Route::resource('kursus', KursusController::class);
-    Route::resource('pendaftaran', PendaftaranKursusController::class);
+    Route::resource('instruktur', InstrukturController::class)->names([
+        'index' => 'admin.instruktur.index',
+        'create' => 'admin.instruktur.create',
+        'store' => 'admin.instruktur.store',
+        'show' => 'admin.instruktur.show',
+        'edit' => 'admin.instruktur.edit',
+        'update' => 'admin.instruktur.update',
+        'destroy' => 'admin.instruktur.destroy',
+    ]);
+    Route::resource('kategori', KategoriKursusController::class)->parameters([
+        'kategori' => 'kategoriKursus',
+    ])->names([
+        'index' => 'admin.kategori.index',
+        'create' => 'admin.kategori.create',
+        'store' => 'admin.kategori.store',
+        'show' => 'admin.kategori.show',
+        'edit' => 'admin.kategori.edit',
+        'update' => 'admin.kategori.update',
+        'destroy' => 'admin.kategori.destroy',
+    ]);
+    
+    Route::resource('kursus', KursusController::class)->parameters([
+        'kursus' => 'kursus',
+    ])->names([
+        'index' => 'admin.kursus.index',
+        'create' => 'admin.kursus.create',
+        'store' => 'admin.kursus.store',
+        'show' => 'admin.kursus.show',
+        'edit' => 'admin.kursus.edit',
+        'update' => 'admin.kursus.update',
+        'destroy' => 'admin.kursus.destroy',
+    ]);
+    
+    Route::resource('pendaftaran', PendaftaranKursusController::class)->names([
+        'index' => 'admin.pendaftaran.index',
+        'create' => 'admin.pendaftaran.create',
+        'store' => 'admin.pendaftaran.store',
+        'show' => 'admin.pendaftaran.show',
+        'edit' => 'admin.pendaftaran.edit',
+        'update' => 'admin.pendaftaran.update',
+        'destroy' => 'admin.pendaftaran.destroy',
+    ]);
     Route::resource('users', UserController::class);
 });
 

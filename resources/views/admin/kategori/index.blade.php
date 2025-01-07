@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <a href="{{ route('kategori.create') }}" class="btn btn-primary">Tambah Kategori</a>
+    <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary">Tambah Kategori</a>
 
     <table class="table mt-3">
         <thead>
@@ -26,8 +26,8 @@
                     <td>{{ $kategori->nama_kategori }}</td>
                     <td>{{ $kategori->deskripsi }}</td>
                     <td>
-                        <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('kategori.destroy', $kategori->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('admin.kategori.edit', $kategori->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('admin.kategori.destroy', $kategori->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

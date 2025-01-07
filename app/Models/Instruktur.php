@@ -11,6 +11,7 @@ class Instruktur extends Model
     protected $table = 'instruktur'; 
     protected $fillable = [
         'nama_instruktur',
+        'npm',
         'email',
         'telepon',
         'alamat',

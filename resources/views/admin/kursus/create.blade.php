@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('kursus.store') }}" method="POST">
+    <form action="{{ route('admin.kursus.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="nama_kursus">Nama Kursus</label>
@@ -52,7 +52,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('kursus.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.kursus.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('kategori.store') }}" method="POST">
+    <form action="{{ route('admin.kategori.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="nama_kategori">Nama Kategori</label>
@@ -25,7 +25,7 @@
             <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('kategori.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.kategori.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

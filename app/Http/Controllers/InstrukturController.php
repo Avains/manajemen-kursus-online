@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/InstrukturController.php
 namespace App\Http\Controllers;
 
 use App\Models\Instruktur;
@@ -26,7 +25,7 @@ public function index(Request $request)
 
     public function create()
     {
-        return view('instruktur.create');
+        return view('admin.instruktur.create');
     }
 
     public function store(Request $request)
@@ -40,12 +39,12 @@ public function index(Request $request)
         ]);
 
         Instruktur::create($request->all());
-        return redirect()->route('instruktur.index')->with('success', 'Instruktur berhasil ditambahkan.');
+        return redirect()->route('admin.instruktur.index')->with('success', 'Instruktur berhasil ditambahkan.');
     }
 
     public function edit(Instruktur $instruktur)
     {
-        return view('instruktur.edit', compact('instruktur'));
+        return view('admin.instruktur.edit', compact('instruktur'));
     }
 
     public function update(Request $request, Instruktur $instruktur)
@@ -59,12 +58,12 @@ public function index(Request $request)
         ]);
 
         $instruktur->update($request->all());
-        return redirect()->route('instruktur.index')->with('success', 'Instruktur berhasil diperbarui.');
+        return redirect()->route('admin.instruktur.index')->with('success', 'Instruktur berhasil diperbarui.');
     }
 
     public function destroy(Instruktur $instruktur)
     {
         $instruktur->delete();
-        return redirect()->route('instruktur.index')->with('success', 'Instruktur berhasil dihapus.');
+        return redirect()->route('admin.instruktur.index')->with('success', 'Instruktur berhasil dihapus.');
     }
 }

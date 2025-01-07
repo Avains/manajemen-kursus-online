@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{ route('kursus.update', $kursus->id) }}" method="POST">
+    <form action="{{ route('admin.kursus.update', $kursus->id) }}" method="POST">
     @csrf
     @method('PUT')
 
@@ -73,7 +73,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Update</button>
-    <a href="{{ route('kursus.index') }}" class="btn btn-secondary">Kembali</a>
+    <a href="{{ route('admin.kursus.index') }}" class="btn btn-secondary">Kembali</a>
 </form>
 </div>
 @endsection

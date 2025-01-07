@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Daftar Instruktur</h1>
-    <a href="{{ route('instruktur.create') }}" class="btn btn-primary mb-3">Tambah Instruktur</a>
+    <a href="{{ route('admin.instruktur.create') }}" class="btn btn-primary mb-3">Tambah Instruktur</a>
     
     @if(session('success'))
     <div class="alert alert-success">
@@ -42,8 +42,8 @@
                     <td>{{ $instr->npm }}</td>
                     <td>{{ $instr->email }}</td>
                     <td>
-                        <a href="{{ route('instruktur.edit', $instr->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('instruktur.destroy', $instr->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('admin.instruktur.edit', $instr->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('admin.instruktur.destroy', $instr->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus instruktur ini?')">Hapus</button>

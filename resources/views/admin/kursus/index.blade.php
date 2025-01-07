@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Daftar Kursus</h1>
-    <a href="{{ route('kursus.create') }}" class="btn btn-primary mb-3">Tambah Kursus</a>
+    <a href="{{ route('admin.kursus.create') }}" class="btn btn-primary mb-3">Tambah Kursus</a>
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -29,7 +29,7 @@
             <tr>
                 <th>No</th> <!-- Tambahkan kolom No -->
                 <th>
-                    <a href="{{ route('kursus.index', ['sort' => 'nama_kursus', 'direction' => $sortDirection === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
+                    <a href="{{ route('admin.kursus.index', ['sort' => 'nama_kursus', 'direction' => $sortDirection === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
                         Nama Kursus
                         @if($sortField === 'nama_kursus')
                             <span class="badge">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
@@ -38,7 +38,7 @@
                 </th>
                 <th>Deskripsi</th>
                 <th>
-                    <a href="{{ route('kursus.index', ['sort' => 'instruktur_id', 'direction' => $sortDirection === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
+                    <a href="{{ route('admin.kursus.index', ['sort' => 'instruktur_id', 'direction' => $sortDirection === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
                         Instruktur
                         @if($sortField === 'instruktur_id')
                             <span class="badge">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
@@ -56,8 +56,8 @@
                 <td>{{ $kurs->deskripsi }}</td>
                 <td>{{ $kurs->instruktur ? $kurs->instruktur->nama_instruktur : 'Tidak ada instruktur' }}</td>
                 <td>
-                    <a href="{{ route('kursus.edit', $kurs->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('kursus.destroy', $kurs->id) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('admin.kursus.edit', $kurs->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('admin.kursus.destroy', $kurs->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus kursus ini?')">Hapus</button>

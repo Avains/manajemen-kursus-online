@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Edit Instruktur</h1>
-    <form action="{{ route('instruktur.update', $instruktur->id) }}" method="POST">
+    <form action="{{ route('admin.instruktur.update', $instruktur->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -48,7 +48,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('instruktur.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.instruktur.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

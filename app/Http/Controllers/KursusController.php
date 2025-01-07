@@ -32,7 +32,7 @@ public function index(Request $request)
     {
         $kategoriKursus = KategoriKursus::all();
         $instrukturs = Instruktur::all(); // Ambil semua instruktur
-        return view('kursus.create', compact('kategoriKursus', 'instrukturs'));
+        return view('admin.kursus.create', compact('kategoriKursus', 'instrukturs'));
     }
 
     public function store(Request $request)
@@ -46,14 +46,14 @@ public function index(Request $request)
         ]);
 
         Kursus::create($request->all());
-        return redirect()->route('kursus.index')->with('success', 'Kursus berhasil ditambahkan.');
+        return redirect()->route('admin.kursus.index')->with('success', 'Kursus berhasil ditambahkan.');
     }
 
     public function edit(Kursus $kursus)
     {
         $kategoriKursus = KategoriKursus::all(); // Ambil semua kategori kursus
         $instruktur = Instruktur::all(); // Ambil semua instruktur
-        return view('kursus.edit', compact('kursus', 'kategoriKursus', 'instruktur'));
+        return view('admin.kursus.edit', compact('kursus', 'kategoriKursus', 'instruktur'));
     }
     
 
@@ -69,12 +69,12 @@ public function index(Request $request)
 
     $kursus->update($request->all());
 
-    return redirect()->route('kursus.index')->with('success', 'Kursus berhasil diperbarui.');
+    return redirect()->route('admin.kursus.index')->with('success', 'Kursus berhasil diperbarui.');
     }
 
     public function destroy(Kursus $kursus)
     {
         $kursus->delete();
-        return redirect()->route('kursus.index')->with('success', 'Kursus berhasil dihapus.');
+        return redirect()->route('admin.kursus.index')->with('success', 'Kursus berhasil dihapus.');
     }
 }

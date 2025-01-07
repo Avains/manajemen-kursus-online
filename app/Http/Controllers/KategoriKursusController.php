@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\KategoriKursus;
 use Illuminate\Http\Request;
-KategoriKursus::whereNotIn('id', [512, 513, 514, 515, 516, 517])->delete();
 
 class KategoriKursusController extends Controller
 {
@@ -16,46 +15,39 @@ class KategoriKursusController extends Controller
 
     public function create()
     {
-        return view('kategori.create');
+        return view('admin.kategori.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori' => 'required',
-            'deskripsi' => 'required',
+            'nama_kategori' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
         ]);
 
-        KategoriKursus::create($request->all());
-        return redirect()->route('kategori.index')->with('success', 'Kategori kursus berhasil ditambahkan.');
+        KategoriKursus::create($request->only(['nama_kategori', 'deskripsi']));
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori kursus berhasil ditambahkan.');
     }
 
     public function edit(KategoriKursus $kategoriKursus)
     {
-        return view('kategori.edit', compact('kategoriKursus'));
+        return view('admin.kategori.edit', compact('kategoriKursus'));
     }
 
     public function update(Request $request, KategoriKursus $kategoriKursus)
     {
         $request->validate([
-            'nama_kategori' => 'required',
-            'deskripsi' => 'required',
+            'nama_kategori' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
         ]);
 
-        $kategoriKursus->update($request->all());
-        return redirect()->route('kategori.index')->with('success', 'Kategori kursus berhasil diperbarui.');
+        $kategoriKursus->update($request->only(['nama_kategori', 'deskripsi']));
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori kursus berhasil diperbarui.');
     }
 
-    public function destroy($id)
-{
-    $kategori = KategoriKursus::find($id);
-
-    if ($kategori) {
-        $kategori->delete();
-        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
+    public function destroy(KategoriKursus $kategoriKursus)
+    {
+        $kategoriKursus->delete();
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil dihapus.');
     }
-
-    return redirect()->route('kategori.index')->with('error', 'Kategori tidak ditemukan.');
-}
-
 }

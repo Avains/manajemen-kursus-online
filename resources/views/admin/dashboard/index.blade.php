@@ -18,7 +18,7 @@
             </a>
         </div>
         <div class="col-md-4 mb-4">
-            <a href="{{ route('instruktur.index') }}" class="card text-center text-decoration-none">
+            <a href="{{ route('admin.instruktur.index') }}" class="card text-center text-decoration-none">
                 <div class="card-header">
                     Data Instruktur
                 </div>
@@ -28,7 +28,7 @@
             </a>
         </div>
         <div class="col-md-4 mb-4">
-            <a href="{{ route('kursus.index') }}" class="card text-center text-decoration-none">
+            <a href="{{ route('admin.kursus.index') }}" class="card text-center text-decoration-none">
                 <div class="card-header">
                     Data Kursus
                 </div>
@@ -38,7 +38,7 @@
             </a>
         </div>
         <div class="col-md-4 mb-4">
-            <a href="{{ route('pendaftaran.index') }}" class="card text-center text-decoration-none">
+            <a href="{{ route('admin.pendaftaran.index') }}" class="card text-center text-decoration-none">
                 <div class="card-header">
                     Data Pendaftaran
                 </div>
@@ -48,7 +48,7 @@
             </a>
         </div>
         <div class="col-md-4 mb-4">
-            <a href="{{ route('kategori.index') }}" class="card text-center text-decoration-none">
+            <a href="{{ route('admin.kategori.index') }}" class="card text-center text-decoration-none">
                 <div class="card-header">
                     Kategori
                 </div>
