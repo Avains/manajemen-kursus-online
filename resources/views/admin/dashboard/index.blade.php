@@ -58,7 +58,7 @@
             </a>
         </div>
         <div class="col-md-4 mb-4">
-            <a href="{{ route('users.index') }}" class="card text-center text-decoration-none">
+            <a href="{{ route('admin.users.index') }}" class="card text-center text-decoration-none">
                 <div class="card-header">
                     Data User
                 </div>

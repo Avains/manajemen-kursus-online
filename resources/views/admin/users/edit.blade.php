@@ -5,7 +5,7 @@
 <div class="container">
     <h1>Edit Pengguna</h1>
 
-    <form action="{{ route('users.update', $user->id) }}" method="POST">
+    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -25,7 +25,7 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Perbarui</button>
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection
