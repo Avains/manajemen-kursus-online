@@ -19,8 +19,9 @@
                 <th>No</th>
                 <th>Nama Mahasiswa</th>
                 <th>Kursus</th>
+                <th>Nama Instruktur</th> <!-- Kolom baru -->
                 <th>Tanggal Pendaftaran</th>
-                <th>Status</th> 
+                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -30,8 +31,9 @@
                 <td>{{ $pendaftaran->firstItem() + $loop->index }}</td>
                 <td>{{ $pend->mahasiswa->nama_mahasiswa }}</td>
                 <td>{{ $pend->kursus->nama_kursus }}</td>
+                <td>{{ $pend->kursus->instruktur->nama_instruktur ?? 'Tidak Ada' }}</td> <!-- Data Nama Instruktur -->
                 <td>{{ \Carbon\Carbon::parse($pend->tanggal_daftar)->format('d-m-Y') }}</td>
-                <td>{{ $pend->status }}</td> 
+                <td>{{ $pend->status }}</td>
                 <td>
                     <a href="{{ route('admin.pendaftaran.edit', $pend->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('admin.pendaftaran.destroy', $pend->id) }}" method="POST" style="display:inline;">
