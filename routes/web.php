@@ -17,7 +17,6 @@ Auth::routes();
 // Rute untuk admin
 Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
-    // Route::resource('mahasiswa', MahasiswaController::class);
     Route::resource('mahasiswa', MahasiswaController::class)->names([
         'index' => 'admin.mahasiswa.index',
         'create' => 'admin.mahasiswa.create',

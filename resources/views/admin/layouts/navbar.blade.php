@@ -8,25 +8,25 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                    <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('mahasiswa.index') }}">Data Mahasiswa</a>
+                    <a class="nav-link" href="{{ route('admin.mahasiswa.index') }}">Data Mahasiswa</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('instruktur.index') }}">Data Instruktur</a>
+                    <a class="nav-link" href="{{ route('admin.instruktur.index') }}">Data Instruktur</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('kursus.index') }}">Data Kursus</a>
+                    <a class="nav-link" href="{{ route('admin.kursus.index') }}">Data Kursus</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('pendaftaran.index') }}">Data Pendaftaran</a>
+                    <a class="nav-link" href="{{ route('admin.pendaftaran.index') }}">Data Pendaftaran</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('kategori.index') }}">Kategori</a>
+                    <a class="nav-link" href="{{ route('admin.kategori.index') }}">Kategori</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.index') }}">Data User</a>
+                    <a class="nav-link" href="{{ route('admin.users.index') }}">Data User</a>
                 </li>
             </ul>
         </div>
