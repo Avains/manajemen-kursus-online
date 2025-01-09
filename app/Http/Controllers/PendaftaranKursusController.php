@@ -3,33 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\PendaftaranKursus;
-use App\Models\Mahasiswa;
 use App\Models\Kursus;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class PendaftaranKursusController extends Controller
 {
-// PendaftaranController.php
-public function index(Request $request)
-{
-    $search = $request->input('search');
-    $pendaftaran = PendaftaranKursus::with(['mahasiswa', 'kursus'])
-        ->when($search, callback: function ($query) use ($search) {
-            return $query->whereHas('mahasiswa', function ($q) use ($search) {
-                $q->where('nama_mahasiswa', 'like', "%{$search}%");
-            })->orWhereHas('kursus', function ($q) use ($search) {
-                $q->where('nama_kursus', 'like', "%{$search}%");
-            });
-        })
-        ->paginate(10);
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+        $pendaftaran = PendaftaranKursus::with(['mahasiswa', 'kursus'])
+            ->when($search, function ($query) use ($search) {
+                return $query->whereHas('mahasiswa', function ($q) use ($search) {
+                    $q->where('nama_mahasiswa', 'like', "%{$search}%");
+                })->orWhereHas('kursus', function ($q) use ($search) {
+                    $q->where('nama_kursus', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10);
 
-    return view('admin.pendaftaran.index', compact('pendaftaran', 'search'));
-}
+        return view('admin.pendaftaran.index', compact('pendaftaran', 'search'));
+    }
 
     public function create()
     {
-        $mahasiswa = Mahasiswa::all();
-        $kursus = Kursus::all();
+        $mahasiswa = Mahasiswa::all(); // Ambil semua data mahasiswa
+        $kursus = Kursus::all(); // Ambil semua data kursus
         return view('admin.pendaftaran.create', compact('mahasiswa', 'kursus'));
     }
 
@@ -48,8 +47,8 @@ public function index(Request $request)
 
     public function edit(PendaftaranKursus $pendaftaran)
     {
-        $mahasiswa = Mahasiswa::all();
-        $kursus = Kursus::all();
+        $mahasiswa = Mahasiswa::all();  // Ambil data mahasiswa
+        $kursus = Kursus::all();  // Ambil data kursus
         return view('admin.pendaftaran.edit', compact('pendaftaran', 'mahasiswa', 'kursus'));
     }
 
@@ -67,6 +66,6 @@ public function index(Request $request)
     public function destroy(PendaftaranKursus $pendaftaran)
     {
         $pendaftaran->delete();
-        return redirect()->route('admin.pendaftaran.index')->with('success', 'Pendaftaran kursus berhasil di hapus.');
+        return redirect()->route('admin.pendaftaran.index')->with('success', 'Pendaftaran kursus berhasil dihapus.');
     }
 }

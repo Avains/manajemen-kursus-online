@@ -20,7 +20,18 @@ class RedirectBasedOnRole
 
             // Jika user
             if ($user->role === 'user' && $request->is('admin/*')) {
-                return redirect('/user/dashboard');
+                // Mengizinkan akses ke admin.pendaftaran untuk user
+                if (in_array($request->route()->getName(), [
+                    'admin.pendaftaran.index', 
+                    'admin.pendaftaran.create',
+                    'admin.pendaftaran.edit',
+                    'admin.pendaftaran.destroy'
+                ])) {
+                    return $next($request);
+                }
+
+                // Pengguna biasa tidak bisa mengakses halaman admin lainnya
+                return redirect()->route('user.dashboard');
             }
         }
 

@@ -11,12 +11,12 @@ use App\Http\Controllers\PendaftaranKursusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
-
 Auth::routes();
 
 // Rute untuk admin
 Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+    
     Route::resource('mahasiswa', MahasiswaController::class)->names([
         'index' => 'admin.mahasiswa.index',
         'create' => 'admin.mahasiswa.create',
@@ -26,11 +26,7 @@ Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function ()
         'update' => 'admin.mahasiswa.update',
         'destroy' => 'admin.mahasiswa.destroy',
     ]);
-    Route::get('/mahasiswa/create', [MahasiswaController::class, 'create'])->name('mahasiswa.create');
-    Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('admin.mahasiswa.show');  // Menampilkan detail mahasiswa
-    Route::get('/universitas/search', [MahasiswaController::class, 'search'])->name('admin.universitas.search');  // Mencari universitas
     
-    // Rute lainnya yang spesifik
     Route::resource('instruktur', InstrukturController::class)->names([
         'index' => 'admin.instruktur.index',
         'create' => 'admin.instruktur.create',
@@ -40,6 +36,7 @@ Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function ()
         'update' => 'admin.instruktur.update',
         'destroy' => 'admin.instruktur.destroy',
     ]);
+    
     Route::resource('kategori', KategoriKursusController::class)->parameters([
         'kategori' => 'kategoriKursus',
     ])->names([
@@ -73,6 +70,7 @@ Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function ()
         'update' => 'admin.pendaftaran.update',
         'destroy' => 'admin.pendaftaran.destroy',
     ]);
+
     Route::resource('users', UserController::class)->names([
         'index' => 'admin.users.index',
         'create' => 'admin.users.create',
@@ -85,13 +83,11 @@ Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function ()
 });
 
 // Rute untuk user
-// Rute untuk user
 Route::middleware(['auth', 'role.redirect'])->prefix('user')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('user.dashboard');
     
-    // Rute khusus untuk user pendaftaran
     Route::resource('pendaftaran', PendaftaranKursusController::class)->names([
-        'index' => 'user.pendaftaran.index', // Nama rute user
+        'index' => 'user.pendaftaran.index',
         'create' => 'user.pendaftaran.create',
         'store' => 'user.pendaftaran.store',
         'show' => 'user.pendaftaran.show',
@@ -101,11 +97,21 @@ Route::middleware(['auth', 'role.redirect'])->prefix('user')->group(function () 
     ]);
 });
 
+// Rute untuk admin dan user (akses yang sama)
+Route::middleware(['auth', 'role.redirect'])->group(function () {
+    // Admin dan User bisa mengakses halaman pendaftaran
+    Route::get('/pendaftaran', [PendaftaranKursusController::class, 'index'])->name('pendaftaran.index');
+    Route::get('/pendaftaran/create', [PendaftaranKursusController::class, 'create'])->name('pendaftaran.create');
+    Route::post('/pendaftaran', [PendaftaranKursusController::class, 'store'])->name('pendaftaran.store');
+    Route::get('/pendaftaran/{pendaftaran}/edit', [PendaftaranKursusController::class, 'edit'])->name('pendaftaran.edit');
+    Route::put('/pendaftaran/{pendaftaran}', [PendaftaranKursusController::class, 'update'])->name('pendaftaran.update');
+    Route::delete('/pendaftaran/{pendaftaran}', [PendaftaranKursusController::class, 'destroy'])->name('pendaftaran.destroy');
+});
 
+// Halaman Dashboard
 Route::middleware(['auth'])->get('/dashboard', function () {
     $user = Auth::user();
 
-    // Periksa role dan arahkan ke dashboard yang sesuai
     if ($user->role === 'admin') {
         return redirect()->route('admin.dashboard'); // Arahkan ke admin dashboard
     }
@@ -114,8 +120,7 @@ Route::middleware(['auth'])->get('/dashboard', function () {
         return redirect()->route('user.dashboard'); // Arahkan ke user dashboard
     }
 
-    // Jika role tidak dikenal, kembalikan ke login
-    return redirect()->route('login');
+    return redirect()->route('login'); // Jika role tidak dikenal, kembali ke login
 })->name('dashboard');
 
 // Rute login dan logout
@@ -131,17 +136,3 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// // Resource routes
-// Route::resource('dashboard', MahasiswaController::class)->middleware('auth');
-// Route::resource('mahasiswa', MahasiswaController::class)->middleware('auth');
-// Route::resource('instruktur', InstrukturController::class)->middleware('auth');
-// Route::resource('kursus', KursusController::class)->middleware('auth');
-// Route::resource('pendaftaran', PendaftaranKursusController::class)->middleware('auth');
-// Route::resource('kategori', KategoriKursusController::class)->middleware('auth');
-// Route::resource('users', UserController::class)->middleware('auth');
-
-// // Route tambahan
-// Route::get('/universitas/search', [MahasiswaController::class, 'search'])->name('universitas.search');
-// Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('mahasiswa.show');
-

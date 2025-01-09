@@ -15,7 +15,8 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.pendaftaran.store') }}" method="POST">
+    <!-- Mengarahkan form sesuai dengan role (admin atau user) -->
+    <form action="{{ route(auth()->user()->role . '.pendaftaran.store') }}" method="POST">
         @csrf
 
         <div class="form-group">
@@ -66,7 +67,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('admin.pendaftaran.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route(auth()->user()->role . '.pendaftaran.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

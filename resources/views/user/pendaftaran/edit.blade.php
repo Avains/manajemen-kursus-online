@@ -15,8 +15,7 @@
         </div>
     @endif
 
-    <!-- Mengarahkan form sesuai dengan role (admin atau user) -->
-    <form action="{{ route(auth()->user()->role . '.pendaftaran.update', $pendaftaran->id) }}" method="POST">
+    <form action="{{ route('user.pendaftaran.update', $pendaftaran->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -72,7 +71,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Perbarui</button>
-        <a href="{{ route(auth()->user()->role . '.pendaftaran.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('user.pendaftaran.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

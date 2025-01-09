@@ -27,7 +27,6 @@ class DashboardController extends Controller
 
     public function adminDashboard()
     {
-        // Data untuk admin dashboard
         $data = [
             'totalMahasiswa' => Mahasiswa::count(),
             'totalInstruktur' => Instruktur::count(),
