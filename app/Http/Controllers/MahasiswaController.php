@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaController extends Controller
 {
@@ -21,6 +22,48 @@ class MahasiswaController extends Controller
 
         return view('admin.mahasiswa.index', compact('mahasiswa', 'search'));
     }
+
+//     public function createForUser()
+// {
+//     // \Log::info('createForUser method called');
+
+//     $user = Auth::user();
+
+//     // Cek apakah email sudah terdaftar di tabel mahasiswa
+//     if (Mahasiswa::where('email', $user->email)->exists()) {
+//         return redirect()->route('user.dashboard')->with('error', 'Email Anda sudah terdaftar sebagai mahasiswa.');
+//     }
+
+//     // Pastikan view yang dipanggil adalah milik user
+//     return view('user.mahasiswa.create', ['user' => $user]);
+// }
+
+
+//     public function storeByUser(Request $request)
+//     {
+//         $user = Auth::user();
+        
+//         $request->validate([
+//             'nama_mahasiswa' => 'required|string|max:255',
+//             'nim' => 'required|string|max:20|unique:mahasiswa,nim',
+//             'telepon' => 'required|string|max:15',
+//             'alamat' => 'required|string|max:500',
+//             'nama_universitas' => 'required|string|max:255',
+//             'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+//         ]);
+
+//         $data = $request->all();
+//         $data['email'] = $user->email; // Gunakan email pengguna dari tabel users
+
+//         if ($request->hasFile('foto_profil')) {
+//             $path = $request->file('foto_profil')->store('mahasiswa', 'public');
+//             $data['foto_profil'] = $path;
+//         }
+
+//         Mahasiswa::create($data);
+
+//         return redirect()->route('user.dashboard')->with('success', 'Mahasiswa berhasil didaftarkan.');
+//     }
 
     public function create()
     {
@@ -41,10 +84,9 @@ class MahasiswaController extends Controller
 
         $data = $request->all();
 
-        // Simpan file ke folder `storage/app/public/mahasiswa`
         if ($request->hasFile('foto_profil')) {
             $path = $request->file('foto_profil')->store('mahasiswa', 'public');
-            $data['foto_profil'] = $path; // Simpan path file ke database
+            $data['foto_profil'] = $path;
         }
 
         Mahasiswa::create($data);
@@ -94,7 +136,7 @@ class MahasiswaController extends Controller
         $universitas = Mahasiswa::select('nama_universitas')
             ->distinct()
             ->where('nama_universitas', 'like', '%' . $query . '%')
-            ->take(10) // Batasi jumlah hasil
+            ->take(10)
             ->get();
     
         return response()->json($universitas);

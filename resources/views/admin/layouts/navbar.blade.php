@@ -7,29 +7,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.mahasiswa.index') }}">Data Mahasiswa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.instruktur.index') }}">Data Instruktur</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.kursus.index') }}">Data Kursus</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.pendaftaran.index') }}">Data Pendaftaran</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.kategori.index') }}">Kategori</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.users.index') }}">Data User</a>
-                </li>
+                @if (auth()->check() && auth()->user()->role === 'admin')
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.mahasiswa.index') }}">Data Mahasiswa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.instruktur.index') }}">Data Instruktur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.kursus.index') }}">Data Kursus</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.pendaftaran.index') }}">Data Pendaftaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.kategori.index') }}">Kategori</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.users.index') }}">Data User</a>
+                    </li>
+                @endif
             </ul>
         </div>
+
     </div>
 </nav>
 @endif

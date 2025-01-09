@@ -85,9 +85,22 @@ Route::middleware(['auth', 'role.redirect'])->prefix('admin')->group(function ()
 });
 
 // Rute untuk user
+// Rute untuk user
 Route::middleware(['auth', 'role.redirect'])->prefix('user')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('user.dashboard');
+    
+    // Rute khusus untuk user pendaftaran
+    Route::resource('pendaftaran', PendaftaranKursusController::class)->names([
+        'index' => 'user.pendaftaran.index', // Nama rute user
+        'create' => 'user.pendaftaran.create',
+        'store' => 'user.pendaftaran.store',
+        'show' => 'user.pendaftaran.show',
+        'edit' => 'user.pendaftaran.edit',
+        'update' => 'user.pendaftaran.update',
+        'destroy' => 'user.pendaftaran.destroy',
+    ]);
 });
+
 
 Route::middleware(['auth'])->get('/dashboard', function () {
     $user = Auth::user();

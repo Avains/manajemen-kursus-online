@@ -1,10 +1,11 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Dashboard Admin')
+
 @section('content')
 <div class="container mt-4">
-    <h1 class="mb-4">Dashboard</h1>
-    <p class="lead">Selamat datang, {{ Auth::user()->name }}!</p>
-    <p>Anda berhasil login ke aplikasi Manajemen Kursus Online.</p>
+    <h1 class="mb-4">Dashboard Admin</h1>
+    <p>Anda login sebagai <strong>{{ Auth::user()->name }}!</p>
 
     <div class="row">
         <div class="col-md-4 mb-4">

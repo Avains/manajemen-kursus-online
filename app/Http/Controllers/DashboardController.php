@@ -47,7 +47,11 @@ class DashboardController extends Controller
         if ($user->role !== 'user') {
             abort(403, 'Unauthorized action.');
         }
+        $data = [
+            'totalPendaftaran' => PendaftaranKursus::count(),
+        ];
+        
 
-        return view('user.dashboard.index');
+        return view('user.dashboard.index',$data);
     }
 }
